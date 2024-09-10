@@ -97,7 +97,7 @@
         <li class="active"><a href="welcome"><i class="fa fa-circle-o"></i>Accueil</a></li>
         <li>
           <a href="clients">
-            <i class="fa fa-calendar"></i> <span>Clients</span>
+            <i class="fa fa-group"></i> <span>Clients</span>
            
           </a>
         </li>
@@ -107,41 +107,36 @@
            
           </a>
         </li>
-        <li>
-          <a href="clients">
-            <i class="fa fa-calendar"></i> <span>Clients</span>
-           
-          </a>
-        </li>
+       
         <li>
           <a href="partenaires">
-            <i class="fa fa-calendar"></i> <span>Partenaires</span>
+            <i class="fa fa-group"></i> <span>Partenaires</span>
            
           </a>
         </li>
           
          <li>
           <a href="primes">
-            <i class="fa fa-calendar"></i> <span>Primes</span>
+            <i class="fa fa-money"></i> <span>Primes</span>
            
           </a>
         </li>
         
          <li>
           <a href="reglements">
-            <i class="fa fa-calendar"></i> <span>Règlements</span>
+            <i class="fa fa-money"></i> <span>Règlements</span>
            
           </a>
         </li>
           
          <li>
           <a href="sinistres">
-            <i class="fa fa-calendar"></i> <span>Sinistres</span>
+            <i class="fa fa-dashboard"></i> <span>Sinistres</span>
            
           </a>
         </li>
           
-        <li class="treeview">
+        <!--<li class="treeview">
           <a href="#">
             <i class="fa fa-pie-chart"></i>
             <span>Graphs</span>
@@ -154,10 +149,8 @@
             <li><a href=""><i class="fa fa-circle-o"></i> Yearly</a></li>
            
           </ul>
-        </li>
-        
-       
-       
+        </li>-->
+
       </ul>
     </section>
     <!-- /.sidebar -->

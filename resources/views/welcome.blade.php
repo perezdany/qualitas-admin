@@ -1,14 +1,35 @@
 @extends('layouts/user_base')
 
+@php
+    use App\Http\Controllers\ContratController;
+    use App\Http\Controllers\ClientController;
+    use App\Http\Controllers\PartenaireController;
+    use App\Http\Controllers\Calculator;
+
+    $clientcontroller = new ClientController();
+
+    $contratcontroller = new ContratController();
+
+    $partenairecontroller = new PartenaireController();
+
+    $calculator = new Calculator();
+
+    $all_partenaire = $partenairecontroller->GetAll();
+
+@endphp
 
 @section('content')
     <!-- Small boxes (Stat box) -->
     <div class="row">
-        <div class="col-lg-4 col-xs-6">
+        <div class="col-lg-3 col-xs-6">
           <!-- small box -->
           <div class="small-box bg-aqua">
             <div class="inner">
-              <h3>150</h3>
+              @php
+                $total_c = $calculator->TotalContrat();
+              @endphp
+
+              <h3>{{$total_c}}</h3>
 
               <p>Contrats</p>
             </div>
@@ -18,11 +39,33 @@
            
           </div>
         </div>
-        <div class="col-lg-4 col-xs-6">
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-warning">
+            <div class="inner">
+              @php
+                $total_c = $calculator->TotalClient();
+              @endphp
+
+              <h3>{{$total_c}}</h3>
+
+              <p>Clients</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-stats-bars"></i>
+            </div>
+           
+          </div>
+        </div>
+        <div class="col-lg-3 col-xs-6">
           <!-- small box -->
           <div class="small-box bg-maroon">
             <div class="inner">
-              <h3>150</h3>
+                @php
+                $total_p = $calculator->TotalPartenaire();
+              @endphp
+
+              <h3>{{$total_p}}</h3>
 
               <p>Partenaires</p>
             </div>
@@ -33,11 +76,15 @@
           </div>
         </div>
         <!-- ./col -->
-        <div class="col-lg-4 col-xs-6">
+        <div class="col-lg-3 col-xs-6">
           <!-- small box -->
           <div class="small-box bg-green">
             <div class="inner">
-              <h3>53<sup style="font-size: 20px">%</sup></h3>
+              @php
+                $total_p = $calculator->TotalPrime();
+              @endphp
+
+              <h3>{{$total_p}}</h3>
 
               <p>Primes</p>
             </div>
@@ -63,100 +110,35 @@
                   <table id="example1" class="table table-bordered table-striped">
                     <thead>
                     <tr>
-                      <th>Rendering engine</th>
-                      <th>Browser</th>
-                      <th>Platform(s)</th>
-                      <th>Engine version</th>
-                      <th>CSS grade</th>
+                      <th>Nom</th>
+                      <th>Adresse</th>
+                      <th>Afficher les contrats</th>
+                      
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                      <td>Trident</td>
-                      <td>Internet
-                        Explorer 4.0
-                      </td>
-                      <td>Win 95+</td>
-                      <td> 4</td>
-                      <td>X</td>
-                    </tr>
-                    <tr>
-                      <td>Trident</td>
-                      <td>Internet
-                        Explorer 5.0
-                      </td>
-                      <td>Win 95+</td>
-                      <td>5</td>
-                      <td>C</td>
-                    </tr>
-                    <tr>
-                      <td>Trident</td>
-                      <td>Internet
-                        Explorer 5.5
-                      </td>
-                      <td>Win 95+</td>
-                      <td>5.5</td>
-                      <td>A</td>
-                    </tr>
-                    <tr>
-                      <td>Trident</td>
-                      <td>Internet
-                        Explorer 6
-                      </td>
-                      <td>Win 98+</td>
-                      <td>6</td>
-                      <td>A</td>
-                    </tr>
-                    <tr>
-                      <td>Trident</td>
-                      <td>Internet Explorer 7</td>
-                      <td>Win XP SP2+</td>
-                      <td>7</td>
-                      <td>A</td>
-                    </tr>
-                    <tr>
-                      <td>Trident</td>
-                      <td>AOL browser (AOL desktop)</td>
-                      <td>Win XP</td>
-                      <td>6</td>
-                      <td>A</td>
-                    </tr>
-                    <tr>
-                      <td>Gecko</td>
-                      <td>Firefox 1.0</td>
-                      <td>Win 98+ / OSX.2+</td>
-                      <td>1.7</td>
-                      <td>A</td>
-                    </tr>
-                    <tr>
-                      <td>Gecko</td>
-                      <td>Firefox 1.5</td>
-                      <td>Win 98+ / OSX.2+</td>
-                      <td>1.8</td>
-                      <td>A</td>
-                    </tr>
-                    <tr>
-                      <td>Gecko</td>
-                      <td>Firefox 2.0</td>
-                      <td>Win 98+ / OSX.2+</td>
-                      <td>1.8</td>
-                      <td>A</td>
-                    </tr>
-                    <tr>
-                      <td>Gecko</td>
-                      <td>Firefox 3.0</td>
-                      <td>Win 2k+ / OSX.3+</td>
-                      <td>1.9</td>
-                      <td>A</td>
-                    </tr>
-                    <tr>
-                      <td>Misc</td>
-                      <td>Lynx</td>
-                      <td>Text only</td>
-                      <td>-</td>
-                      <td>X</td>
-                    </tr>
-                    
+                    @foreach($all_partenaire as $all_partenaire)
+                      <tr>
+                          <td>{{$all_partenaire->nom_partenaire}}</td>
+                          <td>{{$all_partenaire->nom_adresse}}</td>
+                          <td>
+                              <form action="go_contrat_partenaire" method="post">
+                                @csrf
+                                 <input type="text" value={{$all_partenaire->id}} style="display:none;" name="id_partenaire">
+                                <button type="submit" class="btn btn-primary"><i class="fa fa-eye"></i></button>
+                              </form>
+                          </td>
+
+                      </tr>
+                    @endforeach
+
+                    <tfoot>
+                      <tr>
+                        <th>Nom</th>
+                        <th>Adresse</th>
+                        <th>Afficher les contrats</th>
+                     
+                      </tr>
                     </tfoot>
                   </table>
                 </div>

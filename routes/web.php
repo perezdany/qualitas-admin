@@ -5,6 +5,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ContratController;
+use App\Http\Controllers\PartenaireController;
+use App\Http\Controllers\PrimeController;
+use App\Http\Controllers\ReglementController;
 
 
 
@@ -61,7 +64,52 @@ Route::middleware(['auth:user'])->group(function(){
     Route::post('edit_client_form', [ClientController::class, 'EditClientForm']);
     Route::post('edit_client', [ClientController::class, 'EditClient']);
 
+    //LES PARTENAIRES
+    //LES CONTRATS
+    Route::get('partenaires', function () {
+        return view('user/partenaires');
+    });
 
+    //AJOUTER UN PARTENAIRE     
+    Route::post('add_partenaire', [ClientController::class, 'AddPartenaire']);
+
+    //MODIFIER UN PARTENAIRE
+    Route::post('edit_partenaire_form', [PartenaireController::class, 'EditPartenaireForm']);
+
+    Route::post('edit_partenaire', [PartenaireController::class, 'EditPartenaire']);
+
+    //SUPPRIMER PARTENAIRE
+    Route::post('delete_partenaire', [PartenaireController::class, 'EditPartenaire']);
+
+    // LES PRIMES 
+    Route::get('primes', function () {
+        return view('user/primes');
+    });
+
+    //AJOUTER UNE PRIME 
+    Route::post('add_prime', [PrimeController::class, 'AddPrime']);
+
+    //MODIFIER UNE PRIME
+    Route::post('edit_prime_form', [PrimeController::class, 'EditPrimeForm']);
+    Route::post('edit_prime', [PrimeController::class, 'EditPrime']);
+
+    //LES REGLEMENTS
+    Route::get('reglements', function () {
+        return view('user/reglements');
+    });
+
+    //AJOUTER UN REGLEMENT
+    Route::post('add_reglement', [ReglementController::class, 'AddReglement']);
+
+    //MODIFIER UN REGELEMENT
+    Route::post('edit_reglement_form', [ReglementController::class, 'EditReglementForm']);
+    Route::post('edit_reglement', [ReglementController::class, 'EditRegelement']);
+
+
+    //LES SINISTRES
+    Route::get('sinistres', function () {
+        return view('user/sinistres');
+    });
 
 });
 

@@ -85,4 +85,9 @@ class ContratController extends Controller
 
         return $get;
     }
+
+    public function DeleteContrat(Request $request)
+    {
+        
+    }
 }
