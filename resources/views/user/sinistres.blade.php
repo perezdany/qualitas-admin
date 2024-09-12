@@ -21,7 +21,7 @@
 
     $sinistrecontroller = new SinistreController();
 
-    $all_reglement = $regelementcontroller->GetAll();
+    $all_sinistre = $sinistrecontroller->GetAll();
 
     $contrats = $contratcontroller->GetAll();
 
@@ -62,27 +62,32 @@
                       <th>Date d'évènement</th>
                       <th>Victime</th>
                       <th>Montant</th>
+                       <th>Etat</th>
                       <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($all_reglement as $all_reglement)
+                    @foreach($all_sinistre as $all_sinistre)
                         <tr>
-                            <td>{{$all_reglement->montant}}</td>
-                            <td>{{$all_reglement->date_reglement}}</td>
-                            <td>{{$all_reglement->prime_net}}</td>
-                            <td>{{$all_reglement->montant_sinistre}}</td>
-                            
+                            <td>{{$all_sinistre->date_enregistrement}}</td>
+                            <td>{{$all_sinistre->numero_enregistrement}}</td>
+                            <td>{{$all_sinistre->numero_police}}</td>
+                            <td>{{$all_sinistre->nom_prenoms}}</td>
+                            <td>{{$all_sinistre->designation}}</td>
+                            <td>{{$all_sinistre->date_evenement}}</td>
+                            <td>{{$all_sinistre->victime}}</td>
+                            <td>{{$all_sinistre->montant_sinistre}}</td>
+                             <td></td>
                             <td>
                                 <form action="edit_reglement_form" method="post">
                                     @csrf
-                                    <input type="text" value={{$all_reglement->id}} style="display:none;" name="id_reglement">
+                                    <input type="text" value={{$all_sinistre->id}} style="display:none;" name="id_reglement">
                                     <button type="submit" class="btn btn-primary"><i class="fa fa-edit"></i></button>
                                 </form>
 
                                 <form action="delete_regelement" method="post">
                                     @csrf
-                                    <input type="text" value={{$all_reglement->id}} style="display:none;" name="id_reglement">
+                                    <input type="text" value={{$all_sinistre->id}} style="display:none;" name="id_reglement">
                                     <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i></button>
                                 </form>
                             </td>
@@ -119,7 +124,7 @@
             <!-- general form elements -->
             <div class="box box-qualitas">
                 <div class="box-header with-border">
-                <h3 class="box-title">ENREGISTRER UN REGLEMENT</h3>
+                <h3 class="box-title">ENREGISTRER UN SINISTRE</h3>
                 </div>
                 <!-- /.box-header -->
                 <!-- form start -->
@@ -127,49 +132,47 @@
                     @csrf
                     <div class="box-body">
                      
-                        <div class="form-group">
-                            <label >Numéro :</label>
-                            <input type="number" class="form-control" 
-                            name="numero_sinistre" maxlength="11" required>
-                        </div>
-                       
-                        <div class="form-group">
-                            <label >Date de règlement:</label>
-                            <input type="date" class="form-control" 
-                            name="date_reglement"  required>
-                        </div>
                         
-                      
-                         <div class="form-group">
-                            <label >Prime : Selectionner si il s'agit d'une prime</label>
-                            <select name="prime"  class="form-control"  >
+                        <div class="form-group">
+                            <label >Montant :</label>
+                            <input type="number" class="form-control" 
+                            name="montant" maxlength="11" required>
+                        </div>
+                
+                    
+                        <div class="form-group">
+                            <label >Catégorie :</label>
+                            <select name="categorie"  class="form-control"  >
                                 @php
-                                    $les_primes = $primecontroller->PrimeNonReglee();
+                                    $les_primes = $primecontroller->GetAll();
                                 @endphp
-                                <option value="null">--Sélectionner--</option>
+                                
                                     @foreach($les_primes as $les_primes)
                                         <option value="{{$les_primes->id}}">{{$les_primes->nom_prenoms}}/numero de police: {{$les_primes->numero_police}}</option>
                                     @endforeach
                             </select>
-                          
+                        
                         </div>
 
+                        <div class="form-group">
+                            <label >Date de l'évènement:</label>
+                            <input type="date" class="form-control" 
+                            name="date_evenement" required>
+                        </div>
                         
                         <div class="form-group">
-                            <label>Selectionner s'il s'agit d'un sinistre:</label>
-                            <select  class="form-control" name="sinistre"  required>
-                            
-                                @php
-                                    $les_sinistres = $sinistrecontroller->SinistreNonRegle();
-                                @endphp
-                                <option value="null">--Sélectionner--</option>
-                                @foreach($les_sinistres as $les_sinistres)
-                                    <option value="{{$les_sinistres->id}}">{{$les_sinistres->nom_prenoms}}</option>
-                                @endforeach
-
-                            </select>
+                            <label >Nom de la victime:</label>
+                            <input type="date" class="form-control" 
+                            name="victime"  required>
                         </div>
-                    
+
+                        <div class="form-group">
+                            <label >Montant :</label>
+                            <input type="date" class="form-control" 
+                            name="montant" required>
+                        </div>
+                                
+                            
                     </div>
                     <!-- /.box-body -->
 
@@ -205,17 +208,11 @@
                                     <input type="number" class="form-control" value="{{$edit->montant}}"
                                     name="montant" maxlength="11" required>
                                 </div>
+                        
                             
                                 <div class="form-group">
-                                    <label >Date de règlement:</label>
-                                    <input type="date" class="form-control" 
-                                    name="date_reglement" value="{{$edit->date_reglement}}" required>
-                                </div>
-                                
-                            
-                                <div class="form-group">
-                                    <label >Prime : Selectionner si il s'agit d'une prime</label>
-                                    <select name="contrat"  class="form-control"  >
+                                    <label >Catégorie :</label>
+                                    <select name="categorie"  class="form-control"  >
                                         @php
                                             $les_primes = $primecontroller->GetAll();
                                         @endphp
@@ -227,21 +224,24 @@
                                 
                                 </div>
 
+                                <div class="form-group">
+                                    <label >Date de l'évènement:</label>
+                                    <input type="date" class="form-control" 
+                                    name="date_evenement" value="{{$edit->date_reglement}}" required>
+                                </div>
                                 
                                 <div class="form-group">
-                                    <label>Selectionner s'il s'agit d'un sinistre:</label>
-                                    <select type="email" class="form-control" name="partenaire"  required>
-                                    
-                                        @php
-                                            $les_sinistres = $sinistrecontroller->GetAll();
-                                        @endphp
-                                        <option value="null">--Sélectionner--</option>
-                                        @foreach($les_sinistres as $les_sinistres)
-                                            <option value="{{$les_sinistres->id}}">{{$les_sinistres->nom_prenoms}}</option>
-                                        @endforeach
-
-                                    </select>
+                                    <label >Nom de la victime:</label>
+                                    <input type="date" class="form-control" 
+                                    name="victime" value="{{$edit->date_reglement}}" required>
                                 </div>
+
+                                <div class="form-group">
+                                    <label >Montant :</label>
+                                    <input type="date" class="form-control" 
+                                    name="montant" value="{{$edit->date_reglement}}" required>
+                                </div>
+                                
                             
                             </div>
                             <!-- /.box-body -->

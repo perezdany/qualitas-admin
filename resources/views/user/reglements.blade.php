@@ -21,7 +21,9 @@
 
     $sinistrecontroller = new SinistreController();
 
-    $all_reglement = $regelementcontroller->GetAll();
+    $all_reglements = $regelementcontroller->GetAllPourSinistre();
+
+    $all_reglementp = $regelementcontroller->GetAllPourPrime();
 
     $contrats = $contratcontroller->GetAll();
 
@@ -47,7 +49,7 @@
         <div class="col-xs-12">
             <div class="box">
                 <div class="box-header">
-                  <h3 class="box-title">LISTE DES REGLEMENTS</h3>
+                  <h3 class="box-title">REGLEMENTS DE SINISTRES</h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
@@ -56,30 +58,91 @@
                     <tr>
                       <th>Montant</th>
                       <th>Date de règlement</th>
-                      <th>Prime net</th>
+                      
                       <th>Montant du sinistre</th>
-                    
+                        <th>reste a payer</th>
                       <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($all_reglement as $all_reglement)
+                    @foreach($all_reglements as $all_reglements)
                         <tr>
-                            <td>{{$all_reglement->montant}}</td>
-                            <td>{{$all_reglement->date_reglement}}</td>
-                            <td>{{$all_reglement->prime_net}}</td>
-                            <td>{{$all_reglement->montant_sinistre}}</td>
+                            <td>{{$all_reglements->montant}}</td>
+                            <td>{{$all_reglements->date_reglement}}</td>
+                            
+                            <td>{{$all_reglements->montant_sinistre}}</td>
+                             <td>{{$all_reglements->restant}}</td>
                             
                             <td>
                                 <form action="edit_reglement_form" method="post">
                                     @csrf
-                                    <input type="text" value={{$all_reglement->id}} style="display:none;" name="id_reglement">
+                                    <input type="text" value={{$all_reglements->id}} style="display:none;" name="id_reglement">
                                     <button type="submit" class="btn btn-primary"><i class="fa fa-edit"></i></button>
                                 </form>
 
                                 <form action="delete_regelement" method="post">
                                     @csrf
-                                    <input type="text" value={{$all_reglement->id}} style="display:none;" name="id_reglement">
+                                    <input type="text" value={{$all_reglements->id}} style="display:none;" name="id_reglement">
+                                    <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                </form>
+                            </td>
+
+                        </tr>
+                    @endforeach
+
+                    <tfoot>
+                      <tr>
+                         <th>Montant</th>
+                      <th>Date de règlement</th>
+                   
+                      <th>Montant du sinistre</th>
+                        <th>reste a payer</th>
+                      <th>Action</th>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+        <!-- /.col -->
+         <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                  <h3 class="box-title">REGLEMENTS DE PRIMES</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                  <table id="example3" class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                      <th>Montant</th>
+                      <th>Date de règlement</th>
+                      <th>Prime net</th>
+                       <th>reste a payer</th>
+                    
+                      <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($all_reglementp as $all_reglementp)
+                        <tr>
+                            <td>{{$all_reglementp->montant}}</td>
+                            <td>{{$all_reglementp->date_reglement}}</td>
+                            <td>{{$all_reglementp->prime_net}}</td>
+                             <td>{{$all_reglementp->restant}}</td>
+                            
+                            <td>
+                                <form action="edit_reglement_form" method="post">
+                                    @csrf
+                                    <input type="text" value={{$all_reglementp->id}} style="display:none;" name="id_reglement">
+                                    <button type="submit" class="btn btn-primary"><i class="fa fa-edit"></i></button>
+                                </form>
+
+                                <form action="delete_regelement" method="post">
+                                    @csrf
+                                    <input type="text" value={{$all_reglementp->id}} style="display:none;" name="id_reglement">
                                     <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i></button>
                                 </form>
                             </td>
@@ -92,7 +155,7 @@
                          <th>Montant</th>
                       <th>Date de règlement</th>
                       <th>Prime net</th>
-                      <th>Montant du sinistre</th>
+                     <th>reste a payer</th>
                     
                       <th>Action</th>
                       </tr>
@@ -103,7 +166,6 @@
             </div>
             <!-- /.box -->
         </div>
-        <!-- /.col -->
     </div>
 
    <div class="row">

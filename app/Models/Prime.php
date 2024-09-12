@@ -14,6 +14,6 @@ class Prime extends Model
     protected $fillable = [
         'prime_ht', 'prime_net', 'acces_partenaire', 'access_courtier', 
         'taxe', 'commission', 'id_contrat', 'id_utilisateur', 
-        'date_heure_encaiss', 'date_heurre_reverse', 'updated_at'
+        'date_heure_encaiss', 'date_heurre_reverse', 'updated_at', 'restatnt', 'etat_regle'
     ];
 }

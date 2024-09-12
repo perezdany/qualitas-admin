@@ -14,6 +14,6 @@ class Sinistre extends Model
     protected $fillable = [
         'numero_sinistre', 'date_enregistrement', 'numero_enregistrement', 
         'numero_police', 'id_client', 'id_categorie', 'id_utilisateur', 'date_evenement',
-         'victime', 'montant_sinistre', 'updated_at'
+         'victime', 'montant_sinistre', 'updated_at', 'restant', 'etat_regle'
     ];
 }
